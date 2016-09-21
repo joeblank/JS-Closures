@@ -219,20 +219,49 @@ to 5. What we need to do is console.log(i) so that it logs ( 0 then 1 then 2
 then 3, etc). Run this code in your console to see what the output is. */
 
 // To make this code work you will need to create a new scope for every iteration.
+
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function(i) {
-      return function() {
-      newScope(i);
-    }
-  }(i), i * 1000)
+    setTimeout(newScope(i), i * 1000)
   }
-
-  function newScope(i) {
-    console.log(i)
+  function newScope(param) {
+    return function() {
+      console.log(param)
+    }
   }
 }
-var time = timeOutCounter();
+timeOutCounter();
+
+//ANOTHER EXAMPLE BELOW
+
+// function waitToGo() {
+// 	for (var i = 0; i < 10; i++) {
+// 		setTimeout(closureFunc(i), i * 2000);
+// 	}
+// 	function closureFunc(passMeI) {
+// 		return function() {
+// 			console.log("on the " + passMeI + " loop, 'i' was " + passMeI);
+// 		};
+// 	}
+// }
+// waitToGo();
+
+
+//ADDITIONAL EXAMPLE BELOW
+
+// function timeOutCounter() {
+//   for (var i = 0; i <= 5; i++) {
+//     setTimeout(function(param) {
+//             return function() {
+//             newScope(param);
+//             }
+//             }(i), i * 1000)}
+//
+//   function newScope(i) {
+//     console.log(i)
+//   }
+// }
+// var time = timeOutCounter();
 
 
 
@@ -243,17 +272,22 @@ var time = timeOutCounter();
 	#PROBLEM-08
 \******************************************************************************/
 
-var funcArray = [
-  function() {return 0;},
-  function() {return 1;},
-  function() {return 2;},
-  function() {return 3;},
-  function() {return 4;},
-  function() {return 5;},
-];
+var funcArray = [];
 
-/*
-  Make the following code work
+function closure(param) {
+  return function () {
+    return param;
+  }
+}
+function returnArr() {
+  for (var i = 0; i < 6; i++) {
+    funcArray.push(closure(i));
+}
+}
+returnArr();
+
+// /*
+//   Make the following code work
 
   funcArray[0]() //0
   funcArray[1]() //1
@@ -262,5 +296,5 @@ var funcArray = [
   funcArray[4]() //4
   funcArray[5]() //5
 
-  *Hint: Don't let this fool you. Break down what's really happening here.
-*/
+//   *Hint: Don't let this fool you. Break down what's really happening here.
+// */

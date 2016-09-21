@@ -156,7 +156,6 @@ function motivation(firstname, lastname){
 }
 
 var mess = motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
-mess();
 
 
 
@@ -191,12 +190,15 @@ var module = (function() {
 
   return {
     // Code here.
+    publicMethod: function() {
+      return privateMethod();
+    }
   };
 
 })();
 
 // Uncomment this after you create your public method
-//   module.publicMethod();
+  module.publicMethod();
 
 
 
@@ -219,9 +221,11 @@ then 3, etc). Run this code in your console to see what the output is. */
 // To make this code work you will need to create a new scope for every iteration.
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
+    setTimeout(function(i) {
+      return function() {
+      newScope(i);
+    }
+  }(i), i * 1000)
   }
 
   function newScope(i) {
@@ -235,12 +239,18 @@ var time = timeOutCounter();
 
 
 
-
 /******************************************************************************\
 	#PROBLEM-08
 \******************************************************************************/
 
-var funcArray = [];
+var funcArray = [
+  function() {return 0;},
+  function() {return 1;},
+  function() {return 2;},
+  function() {return 3;},
+  function() {return 4;},
+  function() {return 5;},
+];
 
 /*
   Make the following code work

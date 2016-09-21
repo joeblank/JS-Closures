@@ -9,15 +9,16 @@ var outer = function(){
   }
 };
 
+
 /****** INSTRUCTIONS PROBLEM 1 ******/
 /* Above you're given a function that returns another function which has a
 closure over the name variable. Invoke outer saving the return value into
 another variable called 'inner'. */
 
 // Code Here
-
+var inner = outer();
 //Once you do that, invoke inner.
-
+inner();
 //Code Here
 
 
@@ -48,7 +49,8 @@ Create a makeCall function that when invoked logs 'Calling Jake at 435-215-9248'
 in your console. */
 
   //Code Here
-
+var makeCall = callFriend();
+makeCall(435-215-9248);
 
 
 
@@ -67,13 +69,19 @@ in your console. */
 properly. */
 
 //Code Here
-
+function makeCounter() {
+  var total = 0;
+  return function() {
+    total++;
+    return total;
+  }
+}
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -98,15 +106,24 @@ the module pattern to achieve this. */
 function counterFactory(value) {
 
   // Code here.
+  var count = value;
 
-
-  return {
-  }
+  return {inc: function() {
+            count++;
+            return count;
+          },
+          dec: function() {
+            count--;
+            return count;
+          }
+        }
 }
 
 
-counter = counterFactory(10);
 
+var counter = counterFactory(10);
+counter.inc();
+counter.dec();
 
 
 
@@ -129,15 +146,17 @@ function motivation(firstname, lastname){
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
   // code message function here.
-
+  function message() {
+    return "You're doing awesome, keep it up " + firstname + " " + lastname + "."
+  };
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  return message();
 
 }
 
-motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
-
+var mess = motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
+mess();
 
 
 
@@ -209,7 +228,8 @@ function timeOutCounter() {
     console.log(i)
   }
 }
-timeOutCounter();
+var time = timeOutCounter();
+
 
 
 
